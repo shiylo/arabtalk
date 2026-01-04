@@ -1,0 +1,838 @@
+/*Обнуление*/
+*{padding: 0;margin: 0;border: 0;}
+*,*:before,*:after{-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+nav,footer,header,aside{display: block;}
+html,body{height:100%;width:100%;font-size:100%;line-height:1;font-size:14px;-ms-text-size-adjust:100%;-moz-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
+input,button,textarea{font-family:inherit;}
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner {padding:0;border:0;}
+a,a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: inherit;}
+/*--------------------*/
+
+/* Основные стили */
+body {
+    background: #0f172a;
+    color: #e2e8f0;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Обертка */
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #1e293b;
+    position: relative;
+}
+
+/* Шапка - фиксированная */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: #1e293b;
+    padding: 0;
+    z-index: 1000;
+    border-bottom: 2px solid #22c55e;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+.header__body {
+    padding: 0 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header__logo {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #22c55e;
+    letter-spacing: 0.5px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    z-index: 100;
+    transition: all 0.3s ease;
+}
+
+.header__logo:hover {
+    transform: translateY(-2px);
+    background: rgba(34, 197, 94, 0.1);
+}
+
+/* Бургер меню - оставляем как есть */
+.burger {
+  display: none;
+
+  @media (max-width: 1000px) {
+    display: block;
+    position: relative;
+    width: 40px;
+    height: 20px;
+    z-index: 100;
+    span{
+      background-color: #22c55e;
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      left: 0;
+      top: 10px;
+      transition: 300ms;
+      border-radius: 2px;
+    }
+    &::before,
+    &::after{
+      content: '';
+      background-color: #22c55e;
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      left: 0;
+      transition: 300ms;
+      border-radius: 2px;
+    }
+    &::before{
+      top: 0px;
+    }
+    &::after{
+      bottom: -3px;
+    }
+  }
+
+}
+.burger.active{
+  span{
+    transform: scale(0);
+  }
+
+  &::before{
+    transform: rotate(45deg);
+    top: 9px;
+  }
+  &::after{
+    transform: rotate(-45deg);
+    bottom: 7px;
+  }
+}
+
+/* Меню навигации */
+.header__menu {
+    display: flex;
+    align-items: center;
+}
+
+.header__list {
+    display: flex;
+    gap: 30px;
+}
+
+.header__link {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #e2e8f0;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.header__link:hover {
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.1);
+}
+
+/* Адаптив для меню - оставляем как есть */
+@media (max-width: 1000px) {
+    .burger {
+        display: block;
+    }
+    
+    .header__menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: #1e293b;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        transition: right 0.3s ease;
+        z-index: 10;
+        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    .header__menu.active {
+        right: 0;
+    }
+    
+    .header__list {
+        flex-direction: column;
+        gap: 40px;
+        width: 100%;
+        padding: 20px;
+    }
+    
+    .header__link {
+        margin: 10px 0;
+        width: 90%;
+        max-width: 280px;
+        text-align: center;
+        padding: 18px 25px;
+        font-size: 18px;
+        background: rgba(34, 197, 94, 0.05);
+        border: 1px solid rgba(34, 197, 94, 0.2);
+        border-radius: 12px;
+    }
+    
+    .header__link:hover {
+        background: rgba(34, 197, 94, 0.12);
+        border-color: rgba(34, 197, 94, 0.4);
+    }
+    
+    body.menu-open {
+        overflow: hidden;
+    }
+}
+
+/* Основное содержимое */
+.main {
+    flex: 1 1 auto;
+    margin-top: 100px;
+    padding: 30px 10px;
+}
+
+/* Контент */
+.content {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #1e293b;
+    border-radius: 16px;
+    border: 1px solid #334155;
+}
+
+/* Введение - УПРОЩЕННОЕ */
+.intro {
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 20px 10px;
+}
+
+.intro__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #22c55e;
+    margin-bottom: 25px;
+    line-height: 1.3;
+}
+
+.intro__text {
+    font-size: 1.2rem;
+    color: #cbd5e1;
+    line-height: 1.7;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 18px;
+    text-align: left;
+    border-left: 3px solid #22c55e;
+    background: #0f172a;
+    border-radius: 0 8px 8px 0;
+}
+
+/* Заголовок урока */
+.lesson-one {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 60px 0 40px;
+    padding: 20px;
+    color: #22c55e;
+    font-family: 'Traditional Arabic', 'Amiri', serif;
+    direction: rtl;
+    border-bottom: 2px solid #334155;
+    padding-bottom: 30px;
+
+    span{
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    }
+}
+
+/* Список слов */
+.lesson__words {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 50px 0;
+    padding: 40px;
+    background: #0f172a;
+    border-radius: 12px;
+    border: 1px solid #334155;
+}
+
+.lesson__word {
+    padding: 25px 20px;
+    color: #ffffff;
+    font-size: 2.4rem;
+    background: #1e293b;
+    border-radius: 12px;
+    border: 2px solid #334155;
+    transition: all 0.3s ease;
+    text-align: center;
+    cursor: pointer;
+    font-family: 'Traditional Arabic', 'Amiri', serif;
+    direction: rtl;
+}
+
+.lesson__word:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-color: #22c55e;
+    background: #0f172a;
+}
+
+.lesson__word span {
+    display: block;
+    font-size: 1.1rem;
+    color: #22c55e;
+    margin-top: 12px;
+    font-weight: 600;
+    direction: ltr;
+    font-family: system-ui, -apple-system, sans-serif;
+    padding-top: 10px;
+    border-top: 1px solid #334155;
+}
+
+/* Текст урока */
+.lesson__text {
+    color: #ffffff;
+    font-size: 45px;
+    line-height: 1.8;
+    padding: 20px;
+    margin: 50px 0;
+    background: #0f172a;
+    border-radius: 12px;
+    border: 1px solid #334155;
+    text-align: center;
+    direction: rtl;
+    font-family: 'Traditional Arabic', 'Amiri', serif;
+}
+
+/* Блок перевода */
+.lesson__translate {
+    margin: 60px 0;
+    padding: 30px;
+    background: #0f172a;
+    border-radius: 12px;
+    border: 1px solid #334155;
+}
+
+.translate__but {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 32px;
+    background: #22c55e;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    border: none;
+    width: 100%;
+    max-width: 300px;
+}
+
+.translate__but:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
+    background: #16a34a;
+}
+
+.translate {
+    font-size: 1.4rem;
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
+    transition: all 0.4s ease;
+    padding: 0 20px;
+    margin-top: 0;
+    background: #1e293b;
+    border-radius: 10px;
+    border-left: 4px solid #22c55e;
+    line-height: 1.7;
+    color: #e2e8f0;
+    overflow: hidden;
+    direction: ltr;
+    text-align: left;
+}
+
+.translate.active {
+    opacity: 1;
+    visibility: visible;
+    max-height: 500px;
+    padding: 30px;
+    margin-top: 25px;
+}
+
+/* Подвал */
+.footer {
+    margin: 40px 0 20px;
+    text-align: center;
+    padding: 30px;
+    background: #0f172a;
+    border-top: 2px solid #334155;
+}
+
+.footer__link {
+    font-size: 1rem;
+    font-family: system-ui, -apple-system, sans-serif;
+    color: #94a3b8;
+    transition: all 0.3s ease;
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.footer__link:hover {
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.1);
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .header {
+        height: 70px;
+    }
+    
+    .header__body {
+        padding: 0 15px;
+    }
+    
+    .header__logo {
+        font-size: 22px;
+        padding: 8px 15px;
+    }
+    
+    .main {
+        margin-top: 80px;
+        padding: 20px 0px;
+    }
+    
+    .content {
+        padding: 25px 0px;
+        border-radius: 12px;
+        margin: 0;
+    }
+    
+    .intro {
+        padding: 30px 0px;
+        margin-bottom: 40px;
+    }
+    
+    .intro__title {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+    
+    .intro__text {
+        font-size: 1.1rem;
+        padding: 20px;
+        line-height: 1.6;
+    }
+    
+    .lesson-one {
+        font-size: 2.2rem;
+        margin: 40px 0 30px;
+        padding: 15px;
+    }
+    
+    .lesson__words {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        padding: 25px 20px;
+        margin: 30px 0;
+    }
+    
+    .lesson__word {
+        font-size: 2rem;
+        padding: 20px 15px;
+    }
+    
+    .lesson__word span {
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+    
+    .lesson__text {
+        font-size: 1.6rem;
+        padding: 30px 20px;
+        margin: 30px 0;
+        line-height: 1.7;
+    }
+    
+    .lesson__translate {
+        margin: 40px 0;
+        padding: 25px 20px;
+    }
+    
+    .translate__but {
+        padding: 15px 25px;
+        font-size: 1.1rem;
+        width: 100%;
+    }
+    
+    .translate {
+        font-size: 1.3rem;
+        padding: 0 20px;
+    }
+    
+    .translate.active {
+        padding: 25px 20px;
+        margin-top: 20px;
+    }
+    
+    .footer {
+        margin: 30px 0 20px;
+        padding: 25px 20px;
+    }
+    
+    .footer__link {
+        padding: 8px 16px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .intro__title {
+        font-size: 1.8rem;
+    }
+    
+    .intro__text {
+        font-size: 1rem;
+        padding: 18px;
+    }
+    
+    .lesson-one {
+        font-size: 3.2rem;
+        margin: 30px 0px;
+    }
+    
+    .lesson__words {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 20px 15px;
+    }
+    
+    .lesson__word {
+        font-size: 2.3rem;
+        padding: 10px 2px;
+    }
+    
+    .lesson__word span {
+        font-size: 0.9rem;
+    }
+    
+    .lesson__text {
+        font-size: 2rem;
+        padding: 25px 18px;
+    }
+    
+    .content {
+        padding: 20px 15px;
+    }
+    
+    .translate__but {
+        padding: 14px 20px;
+    }
+}
+
+/* Плавная прокрутка */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Простые hover эффекты для слов */
+.lesson__word:hover span {
+    border-top-color: #22c55e;
+}
+
+/* Улучшение видимости активного перевода */
+.translate.active {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Простой разделитель */
+.lesson-one::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: #22c55e;
+    margin: 20px auto 0;
+    border-radius: 2px;
+}
+
+.exercise{
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 2rem;
+}
+.lesson-exercise{
+    text-align: center;
+    font-size: 1.6rem;
+}
+
+//задание
+.homework {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.homework__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .homework__row {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+/* Левая колонка - задание */
+.homework__word {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.homework__title {
+  color: #2d3748;
+  font-size: 24px;
+  margin: 0 0 20px 0;
+  padding-bottom: 15px;
+  border-bottom: 3px solid #4299e1;
+}
+
+.homework__description {
+  color: #4a5568;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+}
+
+.homework__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 25px 0;
+}
+
+.homework__list-item {
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border-left: 4px solid #4299e1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.homework__list-item:hover {
+  transform: translateX(5px);
+  background: #ebf8ff;
+}
+
+.homework__russian {
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 16px;
+}
+
+.homework__hint {
+  font-family: 'Scheherazade New', 'Traditional Arabic', serif;
+  color: #38a169;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.homework__instruction {
+  color: #718096;
+  font-style: italic;
+  font-size: 14px;
+  padding: 12px;
+  background: #fffaf0;
+  border-radius: 6px;
+  margin: 0;
+}
+
+/* Правая колонка - ответы */
+.homework__res {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.homework__answers {
+  margin-bottom: 25px;
+}
+
+.homework__answer-group {
+  margin-bottom: 20px;
+}
+
+.homework__label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 15px;
+}
+
+.homework__input-wrapper {
+  position: relative;
+}
+
+.homework__input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 22px;
+  font-family: 'Scheherazade New', 'Traditional Arabic', 'Arial', sans-serif;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fdfdfd;
+  transition: all 0.3s ease;
+  text-align: right;
+}
+
+.homework__input:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+  background: white;
+}
+
+.arabic-input {
+  /* Специфические стили для арабского ввода */
+  letter-spacing: 0;
+  line-height: 1.4;
+}
+
+/* Статусы инпутов */
+.homework__input.correct {
+  border-color: #38a169;
+  background-color: #f0fff4;
+}
+
+.homework__input.incorrect {
+  border-color: #fc8181;
+  background-color: #fff5f5;
+}
+
+/* Кнопки управления */
+.homework__controls {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.homework__button {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  min-width: 140px;
+}
+
+.homework__button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.homework__button--check {
+  background: #38a169;
+  color: white;
+}
+
+.homework__button--check:hover {
+  background: #2f855a;
+}
+
+.homework__button--reset {
+  background: #e53e3e;
+  color: white;
+}
+
+.homework__button--reset:hover {
+  background: #c53030;
+}
+
+/* Иконки для кнопок (опционально) */
+.homework__button::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.homework__button--check::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+}
+
+.homework__button--reset::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
+}
+
+/* Анимация при проверке */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.homework__input.correct,
+.homework__input.incorrect {
+  animation: fadeIn 0.4s ease;
+}
+.homework__result-text{
+  color: #1d1d1d;
+}
